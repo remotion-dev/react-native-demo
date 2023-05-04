@@ -1,6 +1,7 @@
 import React from 'react';
 import { CompositionManagerProvider } from './CompositionManager';
 import type { LooseComponentType } from './core';
+import { TimelineProvider } from './TimelineProvider';
 
 type Props<T> = {
   component: LooseComponentType<T>;
@@ -30,7 +31,7 @@ export function RemotionContext<T extends JSX.IntrinsicAttributes>({
       width={width}
       defaultProps={inputProps}
     >
-      {children}
+      <TimelineProvider>{children}</TimelineProvider>
     </CompositionManagerProvider>
   );
 }

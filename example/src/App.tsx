@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Player, RemotionContext } from '@remotion/native';
+import { Controls, Player, RemotionContext } from '@remotion/native';
 
 import { StyleSheet, View } from 'react-native';
 import { MyComp } from './MyComp';
@@ -16,6 +16,7 @@ export default function App() {
         component={MyComp}
       >
         <Player />
+        <Controls />
       </RemotionContext>
     </View>
   );

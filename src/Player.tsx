@@ -1,6 +1,5 @@
 import React, { Suspense, useContext, useMemo } from 'react';
 import { Internals, useVideoConfig } from 'remotion';
-import { TimelineProvider } from './TimelineProvider';
 import { View } from 'react-native';
 
 export const Player = () => {
@@ -27,12 +26,10 @@ function InnerPlayer() {
   }, [height, width]);
 
   return (
-    <TimelineProvider>
-      <View style={style}>
-        <Suspense fallback={<View />}>
-          <Comp {...(defaultProps as {})} />
-        </Suspense>
-      </View>
-    </TimelineProvider>
+    <View style={style}>
+      <Suspense fallback={<View />}>
+        <Comp {...(defaultProps as {})} />
+      </Suspense>
+    </View>
   );
 }
