@@ -5,6 +5,7 @@
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "ios": "expo run:ios",
+    "test": "exit 0",
     "web": "expo start --web"
   },
   "dependencies": {
