@@ -8798,11 +8798,6 @@ relateurl@^0.2.7:
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha512-G08Dxvm4iDN3MLM0EsP62EDV9IuhXPR6blNz6Utcp7zyV3tr4HVNINt6MpaRWbxoOHT3Q7YN2P+jaHX8vUbgog==
 
-remotion@4.0.0-alpha5:
-  version "4.0.0-alpha5"
-  resolved "https://registry.yarnpkg.com/remotion/-/remotion-4.0.0-alpha5.tgz#4442bac9e5499e15091c750a97dd9100aebfc82d"
-  integrity sha512-qCvHC7jMrUzHetfyAFtRBylSsJFurvM3h4DkPLzl94NZ+I7ejAYp4yooV2xYgO2UXUdSKmiXHq57mYJe5vrxng==
-
 remove-trailing-separator@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/remove-trailing-separator/-/remove-trailing-separator-1.1.0.tgz#c24bce2a283adad5bc3f58e0d48249b92379d8ef"
