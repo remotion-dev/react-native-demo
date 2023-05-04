@@ -8,7 +8,16 @@ export const CompositionManagerProvider: React.FC<{
   fps: number;
   height: number;
   width: number;
-}> = ({ component, durationInFrames, fps, height, width, children }) => {
+  defaultProps: unknown;
+}> = ({
+  component,
+  defaultProps,
+  durationInFrames,
+  fps,
+  height,
+  width,
+  children,
+}) => {
   const compManager: CompositionManagerContext = useMemo(() => {
     return {
       assets: [],
@@ -24,7 +33,7 @@ export const CompositionManagerProvider: React.FC<{
           parentFolderName: null,
           schema: null,
           width,
-          defaultProps: {},
+          defaultProps,
         },
       ],
       currentComposition: '0',
@@ -33,7 +42,7 @@ export const CompositionManagerProvider: React.FC<{
         fps,
         height,
         width,
-        defaultProps: {},
+        defaultProps,
       },
       folders: [],
       registerAsset: () => {
@@ -68,7 +77,7 @@ export const CompositionManagerProvider: React.FC<{
         // Not doing anything, on the web this would show on the left sidebar
       },
     };
-  }, [component, durationInFrames, fps, height, width]);
+  }, [component, defaultProps, durationInFrames, fps, height, width]);
 
   return (
     <Internals.CompositionManager.Provider value={compManager}>

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useCurrentFrame, Sequence, useVideoConfig } from 'remotion';
 
