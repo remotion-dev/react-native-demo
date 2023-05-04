@@ -1,8 +1,8 @@
 import React, { useCallback, useContext } from 'react';
 import Slider from '@react-native-community/slider';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Internals, useVideoConfig } from 'remotion';
-import { PlayIcon } from './PlayIcon';
+import { PauseIcon, PlayIcon } from './PlayIcon';
 
 const style = StyleSheet.create({
   content: {
@@ -20,8 +20,10 @@ const style = StyleSheet.create({
 });
 
 const InnerControls: React.FC = () => {
-  const { frame } = useContext(Internals.Timeline.TimelineContext);
-  const { setFrame } = useContext(Internals.Timeline.SetTimelineContext);
+  const { frame, playing } = useContext(Internals.Timeline.TimelineContext);
+  const { setFrame, setPlaying } = useContext(
+    Internals.Timeline.SetTimelineContext
+  );
   const { durationInFrames } = useVideoConfig();
 
   const onValueChange = useCallback(
@@ -31,9 +33,15 @@ const InnerControls: React.FC = () => {
     [setFrame]
   );
 
+  const togglePlaying = useCallback(() => {
+    setPlaying((p) => !p);
+  }, [setPlaying]);
+
   return (
     <View style={style.container}>
-      <PlayIcon />
+      <TouchableOpacity onPress={togglePlaying}>
+        {playing ? <PauseIcon /> : <PlayIcon />}
+      </TouchableOpacity>
       <View style={style.spacer} />
       <Slider
         step={1}

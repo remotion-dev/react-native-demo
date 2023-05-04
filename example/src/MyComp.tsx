@@ -1,6 +1,11 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { useCurrentFrame, Sequence, useVideoConfig } from 'remotion';
+import React, { useMemo } from 'react';
+import { StyleSheet, Text, View, ViewStyle } from 'react-native';
+import {
+  useCurrentFrame,
+  Sequence,
+  useVideoConfig,
+  interpolateColors,
+} from 'remotion';
 
 const styles = StyleSheet.create({
   container: {
@@ -10,21 +15,44 @@ const styles = StyleSheet.create({
   inner: {
     width: 100,
     height: 100,
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
 export const MyComp: React.FC = () => {
   const frame = useCurrentFrame();
-  const { height, width } = useVideoConfig();
+  const { durationInFrames } = useVideoConfig();
 
-  console.log(frame, height, width);
+  const style: ViewStyle = useMemo(() => {
+    return {
+      flex: 1,
+      backgroundColor: interpolateColors(
+        frame,
+        [0, durationInFrames],
+        ['orange', 'green']
+      ),
+      justifyContent: 'center',
+      alignItems: 'center',
+    };
+  }, [durationInFrames, frame]);
 
   return (
-    <View style={styles.container}>
+    <View style={style}>
       <Sequence layout="none" from={10} durationInFrames={Infinity}>
-        <View style={styles.inner} />
+        <Inner />
       </Sequence>
+    </View>
+  );
+};
+
+export const Inner: React.FC = () => {
+  const frame = useCurrentFrame();
+
+  return (
+    <View style={styles.inner}>
+      <Text>{frame}</Text>
     </View>
   );
 };

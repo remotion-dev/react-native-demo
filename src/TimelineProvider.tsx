@@ -16,6 +16,7 @@ export const TimelineProvider: React.FC = ({ children }) => {
 
 const InnerTimelineProvider: React.FC = ({ children }) => {
   const [userPreferredFrame, setFrame] = useState(0);
+  const [isPlaying, setPlaying] = useState(false);
   const { durationInFrames } = useVideoConfig();
 
   const actualFrame = useMemo(() => {
@@ -27,27 +28,28 @@ const InnerTimelineProvider: React.FC = ({ children }) => {
       audioAndVideoTags: { current: [] },
       frame: actualFrame,
       imperativePlaying: { current: false },
-      isPlaying: false,
       playbackRate: 1,
-      playing: false,
+      playing: isPlaying,
       rootId: '0',
       setPlaybackRate: () => {},
     };
-  }, [actualFrame]);
+  }, [actualFrame, isPlaying]);
 
-  const setTmelineContext: SetTimelineContextValue = useMemo(() => {
+  const setTimelineContext: SetTimelineContextValue = useMemo(() => {
     return {
       setFrame,
       setImperativePlaying: () => {
         throw new Error('Not implemented');
       },
-      setPlaying: () => {},
+      setPlaying,
     };
   }, []);
 
   return (
     <Internals.Timeline.TimelineContext.Provider value={timelineContext}>
-      <Internals.Timeline.SetTimelineContext.Provider value={setTmelineContext}>
+      <Internals.Timeline.SetTimelineContext.Provider
+        value={setTimelineContext}
+      >
         {children}
       </Internals.Timeline.SetTimelineContext.Provider>
     </Internals.Timeline.TimelineContext.Provider>
