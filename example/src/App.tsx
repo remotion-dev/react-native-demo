@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { Controls, Player, RemotionContext } from '@remotion/native';
+import {
+  Controls,
+  Player,
+  RemotionContext,
+  RenderButton,
+} from '@remotion/native';
 
 import { StyleSheet, View } from 'react-native';
 import { MyComp } from './MyComp';
@@ -18,6 +23,8 @@ export default function App() {
         <Player />
         <View style={styles.spacer} />
         <Controls />
+        <View style={styles.spacer} />
+        <RenderButton />
       </RemotionContext>
     </View>
   );

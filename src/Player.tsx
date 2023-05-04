@@ -1,6 +1,7 @@
 import React, { Suspense, useContext, useMemo } from 'react';
 import { Internals, useVideoConfig } from 'remotion';
 import { View } from 'react-native';
+import { RemotionNativeContext } from './RemotionNativeContext';
 
 export const Player = () => {
   return (
@@ -13,6 +14,7 @@ export const Player = () => {
 function InnerPlayer() {
   const { defaultProps, width, height } = useVideoConfig();
   const manager = useContext(Internals.CompositionManager);
+  const { containerRef } = useContext(RemotionNativeContext);
 
   const Comp = useMemo(() => {
     return manager.compositions[0]?.component!;
@@ -26,7 +28,7 @@ function InnerPlayer() {
   }, [height, width]);
 
   return (
-    <View style={style}>
+    <View ref={containerRef} style={style}>
       <Suspense fallback={<View />}>
         <Comp {...(defaultProps as {})} />
       </Suspense>

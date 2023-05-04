@@ -3,6 +3,7 @@ import { CompositionManagerProvider } from './CompositionManager';
 import type { LooseComponentType } from './core';
 import { TimelineProvider } from './TimelineProvider';
 import { usePlayback } from './use-playback';
+import { RemotionNativeContextProvider } from './RemotionNativeContext';
 
 type Props<T> = {
   component: LooseComponentType<T>;
@@ -44,9 +45,11 @@ export function RemotionContext<T extends JSX.IntrinsicAttributes>({
       width={width}
       defaultProps={inputProps}
     >
-      <TimelineProvider>
-        <WithPlayback>{children}</WithPlayback>
-      </TimelineProvider>
+      <RemotionNativeContextProvider>
+        <TimelineProvider>
+          <WithPlayback>{children}</WithPlayback>
+        </TimelineProvider>
+      </RemotionNativeContextProvider>
     </CompositionManagerProvider>
   );
 }
