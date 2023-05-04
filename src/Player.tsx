@@ -1,8 +1,9 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useMemo } from 'react';
 import type { LooseComponentType } from './core';
 import { Internals } from 'remotion';
 import { TimelineProvider } from './TimelineProvider';
 import { CompositionManagerProvider } from './CompositionManager';
+import { View } from 'react-native';
 
 type Props<T> = {
   component: LooseComponentType<T>;
@@ -21,6 +22,13 @@ export function Player<T extends JSX.IntrinsicAttributes>({
   height,
   width,
 }: PropsWithChildren<Props<T>>) {
+  const style = useMemo(() => {
+    return {
+      height,
+      width,
+    };
+  }, [height, width]);
+
   return (
     <Internals.CanUseRemotionHooks.Provider value>
       <CompositionManagerProvider
@@ -31,7 +39,9 @@ export function Player<T extends JSX.IntrinsicAttributes>({
         width={width}
       >
         <TimelineProvider>
-          <Comp {...inputProps} />
+          <View style={style}>
+            <Comp {...inputProps} />
+          </View>
         </TimelineProvider>
       </CompositionManagerProvider>
     </Internals.CanUseRemotionHooks.Provider>

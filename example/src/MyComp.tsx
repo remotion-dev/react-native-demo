@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useCurrentFrame, Sequence } from 'remotion';
+import { useCurrentFrame, Sequence, useVideoConfig } from 'remotion';
 
 const styles = StyleSheet.create({
   container: {
-    height: 300,
-    width: 300,
+    flex: 1,
     backgroundColor: 'red',
   },
 });
 
 export const MyComp: React.FC = () => {
   const frame = useCurrentFrame();
+  const { height, width } = useVideoConfig();
 
-  console.log(frame);
+  console.log(frame, height, width);
+
   return (
     <View style={styles.container}>
       <Sequence layout="none" from={10} durationInFrames={Infinity}>

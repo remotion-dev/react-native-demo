@@ -7,7 +7,14 @@ import { MyComp } from './MyComp';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Player inputProps={{}} component={MyComp} />
+      <Player
+        width={300}
+        height={300}
+        durationInFrames={100}
+        fps={30}
+        inputProps={{}}
+        component={MyComp}
+      />
     </View>
   );
 }
