@@ -1,34 +1,39 @@
-import React, { PropsWithChildren, useMemo } from 'react';
+import React, { PropsWithChildren } from 'react';
 import type { LooseComponentType } from './core';
-import { Internals, TimelineContextValue } from 'remotion';
+import { Internals } from 'remotion';
+import { TimelineProvider } from './TimelineProvider';
+import { CompositionManagerProvider } from './CompositionManager';
 
 type Props<T> = {
   component: LooseComponentType<T>;
   inputProps: T;
+  durationInFrames: number;
+  fps: number;
+  height: number;
+  width: number;
 };
 
 export function Player<T extends JSX.IntrinsicAttributes>({
   component: Comp,
   inputProps,
+  durationInFrames,
+  fps,
+  height,
+  width,
 }: PropsWithChildren<Props<T>>) {
-  const timelineContext: TimelineContextValue = useMemo(() => {
-    return {
-      audioAndVideoTags: { current: [] },
-      frame: 0,
-      imperativePlaying: { current: false },
-      isPlaying: false,
-      playbackRate: 1,
-      playing: false,
-      rootId: '0',
-      setPlaybackRate: () => {},
-    };
-  }, []);
-
   return (
     <Internals.CanUseRemotionHooks.Provider value>
-      <Internals.Timeline.TimelineContext.Provider value={timelineContext}>
-        <Comp {...inputProps} />
-      </Internals.Timeline.TimelineContext.Provider>
+      <CompositionManagerProvider
+        component={Comp as LooseComponentType<unknown>}
+        durationInFrames={durationInFrames}
+        fps={fps}
+        height={height}
+        width={width}
+      >
+        <TimelineProvider>
+          <Comp {...inputProps} />
+        </TimelineProvider>
+      </CompositionManagerProvider>
     </Internals.CanUseRemotionHooks.Provider>
   );
 }
