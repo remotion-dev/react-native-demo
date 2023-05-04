@@ -32,7 +32,15 @@
           "package": "min-gpl"
         }
       ],
-      "expo-build-properties"
+      "expo-build-properties",
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
+          "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos.",
+          "isAccessMediaLocationEnabled": true
+        }
+      ]
     ]
   }
 }

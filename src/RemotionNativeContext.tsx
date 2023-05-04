@@ -10,6 +10,22 @@ export type RemotionNativeContext = {
   render: () => Promise<string>;
 };
 
+type UseRenderHook = {
+  render: () => Promise<string>;
+};
+
+export const useRender = () => {
+  const { render } = useContext(RemotionNativeContext);
+
+  const value: UseRenderHook = useMemo(() => {
+    return {
+      render,
+    };
+  }, [render]);
+
+  return value;
+};
+
 export const RemotionNativeContext = React.createContext<RemotionNativeContext>(
   {
     containerRef: { current: null },

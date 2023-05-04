@@ -1,13 +1,9 @@
 import * as React from 'react';
-import {
-  Controls,
-  Player,
-  RemotionContext,
-  RenderButton,
-} from '@remotion/native';
+import { Controls, Player, RemotionContext } from '@remotion/native';
 
 import { StyleSheet, View } from 'react-native';
 import { MyComp } from './MyComp';
+import { RenderButton } from './RenderButton';
 
 export default function App() {
   return (
