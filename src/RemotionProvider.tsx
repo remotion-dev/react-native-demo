@@ -45,11 +45,11 @@ export function RemotionContext<T extends JSX.IntrinsicAttributes>({
       width={width}
       defaultProps={inputProps}
     >
-      <RemotionNativeContextProvider>
-        <TimelineProvider>
+      <TimelineProvider>
+        <RemotionNativeContextProvider>
           <WithPlayback>{children}</WithPlayback>
-        </TimelineProvider>
-      </RemotionNativeContextProvider>
+        </RemotionNativeContextProvider>
+      </TimelineProvider>
     </CompositionManagerProvider>
   );
 }
