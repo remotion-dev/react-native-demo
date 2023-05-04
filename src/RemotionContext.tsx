@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { CompositionManagerProvider } from './CompositionManager';
 import type { LooseComponentType } from './core';
 import { TimelineProvider } from './TimelineProvider';
+import { usePlayback } from './use-playback';
 
 type Props<T> = {
   component: LooseComponentType<T>;
@@ -11,6 +12,18 @@ type Props<T> = {
   height: number;
   width: number;
   children: React.ReactNode;
+};
+
+const WithPlayback: React.FC = ({ children }) => {
+  usePlayback({
+    loop: false,
+    moveToBeginningWhenEnded: false,
+    playbackRate: 1,
+    inFrame: null,
+    outFrame: null,
+  });
+
+  return children as ReactElement;
 };
 
 export function RemotionContext<T extends JSX.IntrinsicAttributes>({
@@ -31,7 +44,9 @@ export function RemotionContext<T extends JSX.IntrinsicAttributes>({
       width={width}
       defaultProps={inputProps}
     >
-      <TimelineProvider>{children}</TimelineProvider>
+      <TimelineProvider>
+        <WithPlayback>{children}</WithPlayback>
+      </TimelineProvider>
     </CompositionManagerProvider>
   );
 }
