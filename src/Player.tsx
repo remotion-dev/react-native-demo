@@ -4,8 +4,16 @@ import type { LooseComponentType } from './core';
 
 type Props<T> = {
   component: LooseComponentType<T>;
+  inputProps: T;
 };
 
-export function Player<T>({ children }: PropsWithChildren<Props<T>>) {
-  return <View>{children}</View>;
+export function Player<T extends JSX.IntrinsicAttributes>({
+  component: Comp,
+  inputProps,
+}: PropsWithChildren<Props<T>>) {
+  return (
+    <View>
+      <Comp {...inputProps} />
+    </View>
+  );
 }
