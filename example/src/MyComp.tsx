@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useCurrentFrame } from 'remotion';
 
 const styles = StyleSheet.create({
   container: {
@@ -10,5 +11,6 @@ const styles = StyleSheet.create({
 });
 
 export const MyComp: React.FC = () => {
+  const frame = useCurrentFrame();
   return <View style={styles.container} />;
 };

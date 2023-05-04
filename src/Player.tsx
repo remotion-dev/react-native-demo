@@ -1,5 +1,4 @@
 import React, { PropsWithChildren, useMemo } from 'react';
-import { View } from 'react-native';
 import type { LooseComponentType } from './core';
 import { Internals, TimelineContextValue } from 'remotion';
 
@@ -26,10 +25,10 @@ export function Player<T extends JSX.IntrinsicAttributes>({
   }, []);
 
   return (
-    <View>
+    <Internals.CanUseRemotionHooks.Provider value>
       <Internals.Timeline.TimelineContext.Provider value={timelineContext}>
         <Comp {...inputProps} />
       </Internals.Timeline.TimelineContext.Provider>
-    </View>
+    </Internals.CanUseRemotionHooks.Provider>
   );
 }
