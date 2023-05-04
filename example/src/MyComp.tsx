@@ -7,6 +7,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'red',
   },
+  inner: {
+    width: 100,
+    height: 100,
+    backgroundColor: 'blue',
+  },
 });
 
 export const MyComp: React.FC = () => {
@@ -18,7 +23,7 @@ export const MyComp: React.FC = () => {
   return (
     <View style={styles.container}>
       <Sequence layout="none" from={10} durationInFrames={Infinity}>
-        <View style={{ width: 100, height: 100, backgroundColor: 'blue' }} />
+        <View style={styles.inner} />
       </Sequence>
     </View>
   );
