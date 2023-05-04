@@ -9,7 +9,6 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@types/react-native": "^0.71.6",
     "expo": "~48.0.15",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
@@ -18,6 +17,7 @@
     "react-native-web": "~0.18.10"
   },
   "devDependencies": {
+    "@types/react": "17.0.21",
     "@babel/core": "^7.20.0",
     "@expo/webpack-config": "^0.17.2",
     "babel-loader": "^8.1.0",

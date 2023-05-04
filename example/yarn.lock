@@ -1902,17 +1902,10 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.5.tgz#75a2a8e7d8ab4b230414505d92335d1dcb53a6df"
   integrity sha512-L28j2FcJfSZOnL1WBjDYp2vUHCeIFlyYI/53EwD/rKUBQ7MtUUfbQWiyKJGpcnv4/WgrhWsFKrcPstcAt/J0tQ==
 
-"@types/react-native@^0.71.6":
-  version "0.71.6"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.71.6.tgz#bf0fc6a69bf0c2933c089dfb19fc182b09cb7790"
-  integrity sha512-eCqEZ+GhW9L9o6yVoPqCCAq8Sbd6liaKlh6WviD0X7O035NEe7VQ+q9KXYL+mhyZrLI5sbX7f3G973gG6fuiyQ==
-  dependencies:
-    "@types/react" "*"
-
-"@types/react@*":
-  version "18.2.4"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.4.tgz#970e6d56f6d3fd8bd2cb1d1f042aef1d0426d08e"
-  integrity sha512-IvAIhJTmKAAJmCIcaa6+5uagjyh+9GvcJ/thPZcw+i+vx+22eHlTy2Q1bJg/prES57jehjebq9DnIhOTtIhmLw==
+"@types/react@17.0.21":
+  version "17.0.21"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.21.tgz#069c43177cd419afaab5ce26bb4e9056549f7ea6"
+  integrity sha512-GzzXCpOthOjXvrAUFQwU/svyxu658cwu00Q9ugujS4qc1zXgLFaO0kS2SLOaMWLt2Jik781yuHCWB7UcYdGAeQ==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
