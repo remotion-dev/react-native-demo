@@ -2,6 +2,7 @@ import React, { useCallback, useContext } from 'react';
 import Slider from '@react-native-community/slider';
 import { StyleSheet, View } from 'react-native';
 import { Internals, useVideoConfig } from 'remotion';
+import { PlayIcon } from './PlayIcon';
 
 const style = StyleSheet.create({
   content: {
@@ -11,6 +12,10 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     paddingLeft: 20,
     paddingRight: 20,
+    alignItems: 'center',
+  },
+  spacer: {
+    width: 10,
   },
 });
 
@@ -28,6 +33,8 @@ const InnerControls: React.FC = () => {
 
   return (
     <View style={style.container}>
+      <PlayIcon />
+      <View style={style.spacer} />
       <Slider
         step={1}
         value={frame}

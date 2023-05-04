@@ -16,6 +16,7 @@ export default function App() {
         component={MyComp}
       >
         <Player />
+        <View style={styles.spacer} />
         <Controls />
       </RemotionContext>
     </View>
@@ -32,5 +33,8 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     marginVertical: 20,
+  },
+  spacer: {
+    height: 20,
   },
 });
