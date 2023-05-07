@@ -10,10 +10,10 @@ function Main() {
   const [state, setState] = React.useState<RenderState>({ type: 'preview' });
 
   return (
-    <SafeAreaView style={styles.flex}>
+    <View style={styles.flex}>
       <RemotionContext
         width={1080}
-        height={1080}
+        height={1920}
         durationInFrames={100}
         fps={30}
         inputProps={{}}
@@ -36,7 +36,7 @@ function Main() {
           <RenderButton setState={setState} />
         </View>
       </RemotionContext>
-    </SafeAreaView>
+    </View>
   );
 }
 
