@@ -7,11 +7,11 @@ import { Internals, useVideoConfig } from 'remotion';
 
 export type RemotionNativeContext = {
   screenshotterRef: React.RefObject<View>;
-  render: () => Promise<string>;
+  render: (options: RenderOptions) => Promise<string>;
 };
 
 type UseRenderHook = {
-  render: (options: { onFrame: (url: string) => void }) => Promise<string>;
+  render: (options: RenderOptions) => Promise<string>;
 };
 
 export const useRender = () => {
@@ -35,6 +35,10 @@ export const RemotionNativeContext = React.createContext<RemotionNativeContext>(
   }
 );
 
+export type RenderOptions = {
+  onFrame: (url: string) => void;
+};
+
 export const RemotionNativeContextProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
@@ -42,44 +46,49 @@ export const RemotionNativeContextProvider: React.FC<{
   const { durationInFrames, fps } = useVideoConfig();
   const { setFrame } = useContext(Internals.Timeline.SetTimelineContext);
 
-  const render = useCallback(async () => {
-    setFrame(0);
-    const frames: string[] = [];
-    const renderId = Math.random().toString(36).substring(7);
-    const dir = `${TemporaryDirectoryPath}${renderId}`;
-    await mkdir(dir);
+  const render = useCallback(
+    async (options: RenderOptions) => {
+      setFrame(0);
+      const frames: string[] = [];
+      const renderId = Math.random().toString(36).substring(7);
+      const dir = `${TemporaryDirectoryPath}${renderId}`;
+      await mkdir(dir);
 
-    for (let i = 0; i < durationInFrames; i++) {
-      setFrame(i);
-      const d = await captureRef(ref.current as View);
-      await moveFile(d, `${dir}/image${String(i).padStart(6, '0')}.png`);
-      frames.push(d);
-    }
+      for (let i = 0; i < durationInFrames; i++) {
+        setFrame(i);
+        const d = await captureRef(ref.current as View, {});
+        const out = `${dir}/image${String(i).padStart(6, '0')}.png`;
+        await moveFile(d, out);
+        options.onFrame(out);
+        frames.push(d);
+      }
 
-    const output = `${TemporaryDirectoryPath}${renderId}/out.mp4`;
+      const output = `${TemporaryDirectoryPath}${renderId}/out.mp4`;
 
-    await new Promise<void>((resolve) => {
-      FFmpegKit.executeAsync(
-        [
-          `-r ${fps}`,
-          `-i ${dir}/image%06d.png`,
-          `-c:v`,
-          `libx264`,
-          '-pix_fmt',
-          `yuv420p`,
-          output,
-        ].join(' '),
-        () => {
-          resolve();
-        },
-        (l) => {
-          console.log(l.getMessage());
-        }
-      );
-    });
+      await new Promise<void>((resolve) => {
+        FFmpegKit.executeAsync(
+          [
+            `-r ${fps}`,
+            `-i ${dir}/image%06d.png`,
+            `-c:v`,
+            `libx264`,
+            '-pix_fmt',
+            `yuv420p`,
+            output,
+          ].join(' '),
+          () => {
+            resolve();
+          },
+          (l) => {
+            console.log(l.getMessage());
+          }
+        );
+      });
 
-    return output;
-  }, [durationInFrames, fps, setFrame]);
+      return output;
+    },
+    [durationInFrames, fps, setFrame]
+  );
 
   const value: RemotionNativeContext = useMemo(() => {
     return {

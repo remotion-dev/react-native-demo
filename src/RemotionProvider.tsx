@@ -53,7 +53,6 @@ export function RemotionContext<T extends JSX.IntrinsicAttributes>({
             <View style={styles.outOfViewport}>
               <Screenshotter />
             </View>
-
             {children}
           </WithPlayback>
         </RemotionNativeContextProvider>
@@ -65,7 +64,7 @@ export function RemotionContext<T extends JSX.IntrinsicAttributes>({
 const styles = StyleSheet.create({
   outOfViewport: {
     position: 'absolute',
-    marginTop: -10000,
-    marginLeft: -10000,
+    left: -10000,
+    top: -10000,
   },
 });

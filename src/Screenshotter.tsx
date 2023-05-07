@@ -1,4 +1,4 @@
-import React, { Suspense, useContext, useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Dimensions, View, ViewProps } from 'react-native';
 import { Internals, useVideoConfig } from 'remotion';
 import { RemotionNativeContext } from './RemotionNativeContext';
@@ -33,15 +33,14 @@ export const Screenshotter: React.FC = () => {
       transform: [{ scale }],
       marginLeft: xCorrection,
       marginTop: yCorrection,
+      position: 'absolute',
     };
   }, [height, width]);
 
   return (
     <View ref={screenshotterRef} style={outer}>
       <View style={style}>
-        <Suspense fallback={<View />}>
-          <Comp {...(defaultProps as {})} />
-        </Suspense>
+        <Comp {...(defaultProps as {})} />
       </View>
     </View>
   );

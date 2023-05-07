@@ -1,22 +1,13 @@
 import * as React from 'react';
 import { Controls, RemotionContext } from '@remotion/native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { MyComp } from './MyComp';
-import { RenderButton } from './RenderButton';
+import { RenderButton, RenderState } from './RenderButton';
 import { PlayerContainer } from './PlayerContainer';
 
-type State =
-  | {
-      state: 'preview';
-    }
-  | {
-      type: 'rendering';
-      lastFrame: string | null;
-    };
-
 function Main() {
-  const [state, setState] = React.useState<State>({ state: 'preview' });
+  const [state, setState] = React.useState<RenderState>({ type: 'preview' });
 
   return (
     <SafeAreaView style={styles.flex}>
@@ -29,7 +20,21 @@ function Main() {
         component={MyComp}
       >
         <View style={styles.flex}>
-          <PlayerContainer />
+          {state.type === 'preview' ? (
+            <PlayerContainer />
+          ) : (
+            <View
+              style={{
+                ...styles.flex,
+              }}
+            >
+              <Image
+                source={{ uri: state.lastFrame }}
+                resizeMode="contain"
+                style={styles.fullSize}
+              />
+            </View>
+          )}
           <View style={styles.spacer} />
           <Controls />
           <RenderButton setState={setState} />
@@ -53,6 +58,10 @@ const styles = StyleSheet.create({
   flex: {
     flex: 1,
   },
+  fullSize: {
+    width: '100%',
+    height: '100%',
+  },
   box: {
     width: 60,
     height: 60,
@@ -60,4 +69,5 @@ const styles = StyleSheet.create({
   spacer: {
     height: 20,
   },
+  preview: {},
 });

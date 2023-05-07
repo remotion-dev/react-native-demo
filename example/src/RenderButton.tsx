@@ -8,11 +8,11 @@ import {
 
 export type RenderState =
   | {
-      state: 'preview';
+      type: 'preview';
     }
   | {
       type: 'rendering';
-      lastFrame: string | null;
+      lastFrame: string;
     };
 
 export const RenderButton: React.FC<{
@@ -33,9 +33,11 @@ export const RenderButton: React.FC<{
     const response = await requestPermissionsAsync(true);
     if (response.granted) {
       await saveToLibraryAsync(url);
-      console.log(url);
       Alert.alert('Saved to Gallery!');
     }
+    setState({
+      type: 'preview',
+    });
   }, [render, setState]);
 
   return (

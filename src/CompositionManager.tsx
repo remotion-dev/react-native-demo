@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { ComponentType, LazyExoticComponent, useMemo } from 'react';
 import { CompositionManagerContext, Internals } from 'remotion';
 import type { LooseComponentType } from './core';
 
@@ -23,7 +23,7 @@ export const CompositionManagerProvider: React.FC<{
       assets: [],
       compositions: [
         {
-          component: React.lazy(() => Promise.resolve({ default: component })),
+          component: component as LazyExoticComponent<ComponentType<unknown>>,
           durationInFrames,
           folderName: null,
           fps,
