@@ -20,7 +20,7 @@ export const Player: React.FC<Props> = (props) => {
 function InnerPlayer(props: Props) {
   const { defaultProps, width, height } = useVideoConfig();
   const manager = useContext(Internals.CompositionManager);
-  const { containerRef } = useContext(RemotionNativeContext);
+  const { screenshooterRef } = useContext(RemotionNativeContext);
 
   const Comp = useMemo(() => {
     return manager.compositions[0]?.component!;
@@ -32,8 +32,6 @@ function InnerPlayer(props: Props) {
       compositionHeight: height,
       compositionWidth: width,
     });
-
-  console.log(scale, xCorrection, yCorrection, props.width, props.height);
 
   const style: ViewProps['style'] = useMemo(() => {
     return {
@@ -58,7 +56,7 @@ function InnerPlayer(props: Props) {
 
   return (
     <View style={outer}>
-      <View ref={containerRef} style={style}>
+      <View ref={screenshooterRef} style={style}>
         <Suspense fallback={<View />}>
           <Comp {...(defaultProps as {})} />
         </Suspense>

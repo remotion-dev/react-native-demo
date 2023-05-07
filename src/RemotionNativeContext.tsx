@@ -6,12 +6,12 @@ import { captureRef } from 'react-native-view-shot';
 import { Internals, useVideoConfig } from 'remotion';
 
 export type RemotionNativeContext = {
-  containerRef: React.RefObject<View>;
+  screenshooterRef: React.RefObject<View>;
   render: () => Promise<string>;
 };
 
 type UseRenderHook = {
-  render: () => Promise<string>;
+  render: (options: { onFrame: (url: string) => void }) => Promise<string>;
 };
 
 export const useRender = () => {
@@ -28,7 +28,7 @@ export const useRender = () => {
 
 export const RemotionNativeContext = React.createContext<RemotionNativeContext>(
   {
-    containerRef: { current: null },
+    screenshooterRef: { current: null },
     render: async () => {
       throw new Error('Not implemented');
     },
@@ -83,7 +83,7 @@ export const RemotionNativeContextProvider: React.FC<{
 
   const value: RemotionNativeContext = useMemo(() => {
     return {
-      containerRef: ref,
+      screenshooterRef: ref,
       render,
     };
   }, [render]);
