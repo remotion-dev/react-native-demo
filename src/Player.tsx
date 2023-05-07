@@ -42,6 +42,7 @@ function InnerPlayer(props: Props) {
           scale,
         },
       ],
+      overflow: 'hidden',
     };
   }, [height, scale, width, xCorrection, yCorrection]);
 
