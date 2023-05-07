@@ -4,6 +4,7 @@ import { Image, StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     width: 30,
+    tintColor: 'white',
     height: 30,
   },
 });

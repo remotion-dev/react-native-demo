@@ -64,13 +64,13 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   button: {
-    backgroundColor: '#222',
+    backgroundColor: '#eee',
     padding: 16,
     borderRadius: 8,
   },
   label: {
     fontWeight: 'bold',
-    color: 'white',
+    color: 'black',
     fontSize: 16,
     textAlign: 'center',
   },

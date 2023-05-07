@@ -43,7 +43,7 @@ function Main() {
 export default function App() {
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.flex}>
+      <SafeAreaView style={styles.app}>
         <Main />
       </SafeAreaView>
     </SafeAreaProvider>
@@ -52,6 +52,10 @@ export default function App() {
 
 const styles = StyleSheet.create({
   flex: {
+    flex: 1,
+  },
+  app: {
+    backgroundColor: '#222',
     flex: 1,
   },
   fullSize: {

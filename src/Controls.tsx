@@ -44,9 +44,9 @@ const InnerControls: React.FC = () => {
       </TouchableOpacity>
       <View style={style.spacer} />
       <Slider
-        thumbTintColor="black"
+        thumbTintColor="white"
         step={1}
-        minimumTrackTintColor="rgba(0, 0, 0, 0.8)"
+        minimumTrackTintColor="rgba(255, 255, 255, 0.8)"
         value={frame}
         minimumValue={0}
         maximumValue={durationInFrames - 1}
