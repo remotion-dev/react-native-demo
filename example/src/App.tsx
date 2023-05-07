@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Controls, Player, RemotionContext } from '@remotion/native';
 
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { MyComp } from './MyComp';
 import { RenderButton } from './RenderButton';
 
 export default function App() {
+  const { width, height } = useWindowDimensions();
   return (
     <View style={styles.container}>
       <RemotionContext
@@ -16,7 +17,7 @@ export default function App() {
         inputProps={{}}
         component={MyComp}
       >
-        <Player />
+        <Player width={width} height={height} />
         <View style={styles.spacer} />
         <Controls />
         <View style={styles.spacer} />

@@ -1,17 +1,23 @@
 import React, { Suspense, useContext, useMemo } from 'react';
 import { Internals, useVideoConfig } from 'remotion';
-import { View } from 'react-native';
+import { View, ViewProps } from 'react-native';
 import { RemotionNativeContext } from './RemotionNativeContext';
+import { calculateCanvasTransformation } from './calculate-scale';
 
-export const Player = () => {
+type Props = {
+  width: number;
+  height: number;
+};
+
+export const Player: React.FC<Props> = (props) => {
   return (
     <Internals.CanUseRemotionHooks.Provider value>
-      <InnerPlayer />
+      <InnerPlayer {...props} />
     </Internals.CanUseRemotionHooks.Provider>
   );
 };
 
-function InnerPlayer() {
+function InnerPlayer(props: Props) {
   const { defaultProps, width, height } = useVideoConfig();
   const manager = useContext(Internals.CompositionManager);
   const { containerRef } = useContext(RemotionNativeContext);
@@ -20,12 +26,26 @@ function InnerPlayer() {
     return manager.compositions[0]?.component!;
   }, [manager.compositions]);
 
-  const style = useMemo(() => {
+  const { scale, xCorrection, yCorrection } = calculateCanvasTransformation({
+    canvasSize: { width: props.width, height: props.height },
+    compositionHeight: height,
+    compositionWidth: width,
+  });
+
+  const style: ViewProps['style'] = useMemo(() => {
     return {
       height,
       width,
+      marginLeft: xCorrection,
+      marginTop: yCorrection,
+      position: 'absolute',
+      transform: [
+        {
+          scale,
+        },
+      ],
     };
-  }, [height, width]);
+  }, [height, scale, width, xCorrection, yCorrection]);
 
   return (
     <View ref={containerRef} style={style}>
