@@ -26,11 +26,14 @@ function InnerPlayer(props: Props) {
     return manager.compositions[0]?.component!;
   }, [manager.compositions]);
 
-  const { scale, xCorrection, yCorrection } = calculateCanvasTransformation({
-    canvasSize: { width: props.width, height: props.height },
-    compositionHeight: height,
-    compositionWidth: width,
-  });
+  const { scale, xCorrection, yCorrection, centerX, centerY } =
+    calculateCanvasTransformation({
+      canvasSize: { width: props.width, height: props.height },
+      compositionHeight: height,
+      compositionWidth: width,
+    });
+
+  console.log(scale, xCorrection, yCorrection, props.width, props.height);
 
   const style: ViewProps['style'] = useMemo(() => {
     return {
@@ -38,7 +41,6 @@ function InnerPlayer(props: Props) {
       width,
       marginLeft: xCorrection,
       marginTop: yCorrection,
-      position: 'absolute',
       transform: [
         {
           scale,
@@ -47,11 +49,20 @@ function InnerPlayer(props: Props) {
     };
   }, [height, scale, width, xCorrection, yCorrection]);
 
+  const outer = useMemo(() => {
+    return {
+      left: centerX,
+      top: centerY,
+    };
+  }, [centerX, centerY]);
+
   return (
-    <View ref={containerRef} style={style}>
-      <Suspense fallback={<View />}>
-        <Comp {...(defaultProps as {})} />
-      </Suspense>
+    <View style={outer}>
+      <View ref={containerRef} style={style}>
+        <Suspense fallback={<View />}>
+          <Comp {...(defaultProps as {})} />
+        </Suspense>
+      </View>
     </View>
   );
 }
