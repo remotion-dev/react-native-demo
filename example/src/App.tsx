@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { Controls, Player, RemotionContext } from '@remotion/native';
+import { Controls, RemotionContext } from '@remotion/native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { StyleSheet, useWindowDimensions, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { MyComp } from './MyComp';
 import { RenderButton } from './RenderButton';
 import { PlayerContainer } from './PlayerContainer';
 
 function Main() {
-  const { width, height } = useWindowDimensions();
   return (
     <SafeAreaView style={styles.container}>
       <RemotionContext
