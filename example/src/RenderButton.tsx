@@ -1,5 +1,12 @@
 import React from 'react';
-import { TouchableOpacity, Text, Alert } from 'react-native';
+import {
+  TouchableOpacity,
+  Text,
+  Alert,
+  StyleSheet,
+  View,
+  TouchableHighlight,
+} from 'react-native';
 import { useRender } from '@remotion/native';
 import {
   requestPermissionsAsync,
@@ -41,8 +48,31 @@ export const RenderButton: React.FC<{
   }, [render, setState]);
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Text>Render</Text>
-    </TouchableOpacity>
+    <View style={styles.container}>
+      <TouchableHighlight
+        underlayColor={'black'}
+        style={styles.button}
+        onPress={onPress}
+      >
+        <Text style={styles.label}>Render video</Text>
+      </TouchableHighlight>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+  },
+  button: {
+    backgroundColor: '#222',
+    padding: 16,
+    borderRadius: 8,
+  },
+  label: {
+    fontWeight: 'bold',
+    color: 'white',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+});

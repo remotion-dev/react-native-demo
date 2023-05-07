@@ -23,11 +23,7 @@ function Main() {
           {state.type === 'preview' ? (
             <PlayerContainer />
           ) : (
-            <View
-              style={{
-                ...styles.flex,
-              }}
-            >
+            <View style={styles.flex}>
               <Image
                 source={{ uri: state.lastFrame }}
                 resizeMode="contain"
@@ -61,10 +57,6 @@ const styles = StyleSheet.create({
   fullSize: {
     width: '100%',
     height: '100%',
-  },
-  box: {
-    width: 60,
-    height: 60,
   },
   spacer: {
     height: 20,
