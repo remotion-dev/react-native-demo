@@ -1,14 +1,20 @@
 import * as React from 'react';
 import { Controls, Player, RemotionContext } from '@remotion/native';
-
+import {
+  SafeAreaProvider,
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { MyComp } from './MyComp';
 import { RenderButton } from './RenderButton';
 
-export default function App() {
+function Main() {
   const { width, height } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
+  console.log(insets);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <RemotionContext
         width={300}
         height={300}
@@ -17,21 +23,29 @@ export default function App() {
         inputProps={{}}
         component={MyComp}
       >
-        <Player width={width} height={height} />
-        <View style={styles.spacer} />
-        <Controls />
-        <View style={styles.spacer} />
-        <RenderButton />
+        <View style={{ flex: 1 }}>
+          <Player width={width} height={height} />
+          <View style={styles.spacer} />
+          <Controls />
+          <View style={styles.spacer} />
+          <RenderButton />
+        </View>
       </RemotionContext>
-    </View>
+    </SafeAreaView>
+  );
+}
+
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <Main />
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   box: {
     width: 60,
