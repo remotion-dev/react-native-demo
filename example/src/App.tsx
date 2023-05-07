@@ -1,14 +1,10 @@
 import * as React from 'react';
-import { Controls, RemotionContext, useRender } from '@remotion/native';
+import { Controls, RemotionContext } from '@remotion/native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Alert, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { MyComp } from './MyComp';
 import { RenderButton } from './RenderButton';
 import { PlayerContainer } from './PlayerContainer';
-import {
-  requestPermissionsAsync,
-  saveToLibraryAsync,
-} from 'expo-media-library';
 
 type State =
   | {
@@ -20,25 +16,7 @@ type State =
     };
 
 function Main() {
-  const { render } = useRender();
   const [state, setState] = React.useState<State>({ state: 'preview' });
-
-  const onPress = React.useCallback(async () => {
-    const url = await render({
-      onFrame: (frame) => {
-        setState({
-          type: 'rendering',
-          lastFrame: frame,
-        });
-      },
-    });
-
-    const response = await requestPermissionsAsync(true);
-    if (response.granted) {
-      await saveToLibraryAsync(url);
-      Alert.alert('Saved to Gallery!');
-    }
-  }, [render]);
 
   return (
     <SafeAreaView style={styles.flex}>
@@ -54,7 +32,7 @@ function Main() {
           <PlayerContainer />
           <View style={styles.spacer} />
           <Controls />
-          <RenderButton onPress={onPress} />
+          <RenderButton setState={setState} />
         </View>
       </RemotionContext>
     </SafeAreaView>
@@ -64,7 +42,9 @@ function Main() {
 export default function App() {
   return (
     <SafeAreaProvider>
-      <Main />
+      <SafeAreaView style={styles.flex}>
+        <Main />
+      </SafeAreaView>
     </SafeAreaProvider>
   );
 }

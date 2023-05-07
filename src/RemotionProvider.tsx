@@ -4,6 +4,8 @@ import type { LooseComponentType } from './core';
 import { TimelineProvider } from './TimelineProvider';
 import { usePlayback } from './use-playback';
 import { RemotionNativeContextProvider } from './RemotionNativeContext';
+import { StyleSheet, View } from 'react-native';
+import { Screenshotter } from './Screenshotter';
 
 type Props<T> = {
   component: LooseComponentType<T>;
@@ -47,9 +49,23 @@ export function RemotionContext<T extends JSX.IntrinsicAttributes>({
     >
       <TimelineProvider>
         <RemotionNativeContextProvider>
-          <WithPlayback>{children}</WithPlayback>
+          <WithPlayback>
+            <View style={styles.outOfViewport}>
+              <Screenshotter />
+            </View>
+
+            {children}
+          </WithPlayback>
         </RemotionNativeContextProvider>
       </TimelineProvider>
     </CompositionManagerProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  outOfViewport: {
+    position: 'absolute',
+    marginTop: -10000,
+    marginLeft: -10000,
+  },
+});

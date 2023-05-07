@@ -1,9 +1,43 @@
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text, Alert } from 'react-native';
+import { useRender } from '@remotion/native';
+import {
+  requestPermissionsAsync,
+  saveToLibraryAsync,
+} from 'expo-media-library';
+
+export type RenderState =
+  | {
+      state: 'preview';
+    }
+  | {
+      type: 'rendering';
+      lastFrame: string | null;
+    };
 
 export const RenderButton: React.FC<{
-  onPress: () => void;
-}> = ({ onPress }) => {
+  setState: React.Dispatch<React.SetStateAction<RenderState>>;
+}> = ({ setState }) => {
+  const { render } = useRender();
+
+  const onPress = React.useCallback(async () => {
+    const url = await render({
+      onFrame: (frame) => {
+        setState({
+          type: 'rendering',
+          lastFrame: frame,
+        });
+      },
+    });
+
+    const response = await requestPermissionsAsync(true);
+    if (response.granted) {
+      await saveToLibraryAsync(url);
+      console.log(url);
+      Alert.alert('Saved to Gallery!');
+    }
+  }, [render, setState]);
+
   return (
     <TouchableOpacity onPress={onPress}>
       <Text>Render</Text>

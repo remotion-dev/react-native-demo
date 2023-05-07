@@ -1,7 +1,6 @@
 import React, { Suspense, useContext, useMemo } from 'react';
 import { Internals, useVideoConfig } from 'remotion';
 import { View, ViewProps } from 'react-native';
-import { RemotionNativeContext } from './RemotionNativeContext';
 import { calculateCanvasTransformation } from './calculate-scale';
 
 type Props = {
@@ -20,7 +19,6 @@ export const Player: React.FC<Props> = (props) => {
 function InnerPlayer(props: Props) {
   const { defaultProps, width, height } = useVideoConfig();
   const manager = useContext(Internals.CompositionManager);
-  const { screenshooterRef } = useContext(RemotionNativeContext);
 
   const Comp = useMemo(() => {
     return manager.compositions[0]?.component!;
@@ -56,7 +54,7 @@ function InnerPlayer(props: Props) {
 
   return (
     <View style={outer}>
-      <View ref={screenshooterRef} style={style}>
+      <View style={style}>
         <Suspense fallback={<View />}>
           <Comp {...(defaultProps as {})} />
         </Suspense>
