@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.remotion.native-demo",
@@ -26,13 +24,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "permissions": [
-        "android.permission.READ_EXTERNAL_STORAGE",
-        "android.permission.WRITE_EXTERNAL_STORAGE",
-        "android.permission.ACCESS_MEDIA_LOCATION"
-      ],
-      "package": "dev.remotion.native"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
