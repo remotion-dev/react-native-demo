@@ -1,14 +1,20 @@
-## Remotion in React Native
+# Remotion in React Native
 
 This is a proof of concept for creating videos in React Native using Remotion, presented at [App.js Conf 2023](https://appjs.co/).
 
-### Features
+## Features
 
-- Define a video with Remotion APIs: `useCurrentFrame()`, `<Sequence>`, `spring()`
+- Define a video with Remotion APIs: [`useCurrentFrame()`](https://www.remotion.dev/docs/use-current-frame), [`<Sequence>`](https://www.remotion.dev/docs/sequence), [`spring()`](https://www.remotion.dev/docs/spring)
 - Play a preview of the video and update it based on user interaction
-- Render the video into an MP4 on-device.
+- Render the video into a `.mp4` on-device.
 
-### Limitations
+## Architecture
+
+- A React context is created that holds the current frame, the duration and dimensions of the video.
+- If the video is playing, a `requestAnimationFrame` loop is started that updates the current frame.
+- Wherever possible, the existing APIs from the `remotion` package were reused.
+
+## Limitations
 
 To start, some Remotion features were not considered:
 
