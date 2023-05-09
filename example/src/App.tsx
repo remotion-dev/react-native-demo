@@ -5,6 +5,7 @@ import { Image, StyleSheet, View } from 'react-native';
 import { MyComp } from './MyComp';
 import { RenderButton, RenderState } from './RenderButton';
 import { PlayerContainer } from './PlayerContainer';
+import { StatusBar } from 'expo-status-bar';
 
 function Main() {
   const [state, setState] = React.useState<RenderState>({ type: 'preview' });
@@ -44,6 +45,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.app}>
+        <StatusBar style="light" />
         <Main />
       </SafeAreaView>
     </SafeAreaProvider>
