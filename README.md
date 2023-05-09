@@ -25,6 +25,10 @@ To start, some Remotion features were not considered:
 - **Async operations**: The renderer does not wait for `delayRender()` calls.
 - **No multithreading**: The video is rendered frame-by-frame on the main thread.
 
+## Known bugs
+
+- [Does not save video on Android Tiramisu and higher](https://github.com/expo/expo/pull/20907/files#r1188611508)
+
 ## License
 
 The source code in this repository is licensed under the MIT license.
