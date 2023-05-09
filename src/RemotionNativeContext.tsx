@@ -68,9 +68,14 @@ export const RemotionNativeContextProvider: React.FC<{
         setFrame(i);
         const d = await captureRef(ref.current as View, {});
         const out = `${dir}/image${String(i).padStart(6, '0')}.png`;
-        await moveFile(d, out);
-        options.onFrame(Platform.OS === 'android' ? d : out, i + 1);
-        frames.push(d);
+        if (Platform.OS === 'android') {
+          options.onFrame(d, i + 1);
+          frames.push(d);
+        } else {
+          await moveFile(d, out);
+          options.onFrame(out, i + 1);
+          frames.push(out);
+        }
       }
 
       const output = `${TemporaryDirectoryPath}${renderId}/out.mp4`;

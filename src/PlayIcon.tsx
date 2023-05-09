@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
 export const PlayIcon: React.FC = () => {
   return (
     <Image
+      fadeDuration={0}
       resizeMode="contain"
       style={styles.container}
       source={require('./play.png')}
@@ -22,6 +23,7 @@ export const PlayIcon: React.FC = () => {
 export const PauseIcon: React.FC = () => {
   return (
     <Image
+      fadeDuration={0}
       resizeMode="contain"
       style={styles.container}
       source={require('./pause.png')}

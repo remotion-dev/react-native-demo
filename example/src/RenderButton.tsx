@@ -6,6 +6,7 @@ import {
   View,
   TouchableHighlight,
   ViewProps,
+  Platform,
 } from 'react-native';
 import { useRender } from '@remotion/native';
 import {
@@ -59,8 +60,14 @@ export const RenderButton: React.FC<{
     const response = await requestPermissionsAsync(true);
 
     if (response.granted) {
-      await saveToLibraryAsync(url);
-      Alert.alert('Saved to Gallery!');
+      if (Platform.OS === 'ios') {
+        await saveToLibraryAsync(url);
+        Alert.alert('Saved to Gallery!');
+      } else {
+        // TODO: How to properly save to camera roll on Android?
+        Alert.alert('Rendered video!');
+        console.log(url);
+      }
     }
 
     setState({

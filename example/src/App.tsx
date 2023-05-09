@@ -26,6 +26,7 @@ function Main() {
           ) : (
             <View style={styles.flex}>
               <Image
+                fadeDuration={0}
                 source={{ uri: state.lastFrameUrl }}
                 resizeMode="contain"
                 style={styles.fullSize}
