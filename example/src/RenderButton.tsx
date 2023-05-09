@@ -5,6 +5,7 @@ import {
   StyleSheet,
   View,
   TouchableHighlight,
+  ViewProps,
 } from 'react-native';
 import { useRender } from '@remotion/native';
 import {
@@ -78,11 +79,21 @@ export const RenderButton: React.FC<{
     return 'Render video';
   }, [durationInFrames, state]);
 
+  const disabled = state.type !== 'preview';
+
+  const style: ViewProps['style'] = useMemo(() => {
+    return {
+      backgroundColor: disabled ? 'rgba(255, 255, 255, 0.5)' : '#eee',
+      padding: 16,
+      borderRadius: 8,
+    };
+  }, [disabled]);
+
   return (
     <View style={styles.container}>
       <TouchableHighlight
         underlayColor={'black'}
-        style={styles.button}
+        style={style}
         disabled={state.type !== 'preview'}
         onPress={onPress}
       >
@@ -95,11 +106,6 @@ export const RenderButton: React.FC<{
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-  },
-  button: {
-    backgroundColor: '#eee',
-    padding: 16,
-    borderRadius: 8,
   },
   label: {
     fontWeight: 'bold',
