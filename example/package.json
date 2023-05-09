@@ -33,7 +33,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@expo/webpack-config": "^18.0.1",
-    "@types/react": "~18.0.27",
+    "@types/react": "17.0.21",
     "babel-loader": "^8.1.0",
     "babel-plugin-module-resolver": "^4.1.0"
   },
