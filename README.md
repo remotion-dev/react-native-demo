@@ -24,3 +24,8 @@ To start, some Remotion features were not considered:
 - **Codecs**: Only MP4s are supported.
 - **Async operations**: The renderer does not wait for `delayRender()` calls.
 - **No multithreading**: The video is rendered frame-by-frame on the main thread.
+
+## License
+
+The source code in this repository is licensed under the MIT license.
+Remotion, a dependency of this project, uses the Remotion license. Note that for some entities a company license is needed. Read the terms here.
