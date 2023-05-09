@@ -1,6 +1,6 @@
 # Remotion in React Native
 
-This is a proof of concept for creating videos in React Native using Remotion, presented at [App.js Conf 2023](https://appjs.co/).
+This is a proof of concept for creating videos in React Native using [Remotion](https://remotion.dev), presented at [App.js Conf 2023](https://appjs.co/).
 
 ## Features
 
@@ -28,4 +28,4 @@ To start, some Remotion features were not considered:
 ## License
 
 The source code in this repository is licensed under the MIT license.
-Remotion, a dependency of this project, uses the Remotion license. Note that for some entities a company license is needed. Read the terms here.
+Remotion, a dependency of this project, uses the Remotion license. Note that for some entities a company license is needed. [Read the terms here](https://remotion.dev/license).
