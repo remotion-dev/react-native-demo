@@ -27,7 +27,7 @@ To start, some Remotion features were not considered:
 
 ## Known bugs
 
-- [Does not save video on Android Tiramisu and higher](https://github.com/expo/expo/pull/20907/files#r1188611508)
+- [Does not save video on Android SDK33 and higher](https://github.com/expo/expo/pull/20907/files#r1188611508)
 
 ## License
 

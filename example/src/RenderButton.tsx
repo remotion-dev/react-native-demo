@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   Text,
   Alert,
@@ -11,6 +11,7 @@ import {
   requestPermissionsAsync,
   saveToLibraryAsync,
 } from 'expo-media-library';
+import { useVideoConfig } from 'remotion';
 
 export type RenderState =
   | {
@@ -18,42 +19,74 @@ export type RenderState =
     }
   | {
       type: 'rendering';
-      lastFrame: string;
+      lastFrameUrl: string;
+      renderedFrames: number;
+      encodedFrames: number;
     };
 
 export const RenderButton: React.FC<{
+  state: RenderState;
   setState: React.Dispatch<React.SetStateAction<RenderState>>;
-}> = ({ setState }) => {
+}> = ({ setState, state }) => {
   const { render } = useRender();
+  const { durationInFrames } = useVideoConfig();
 
   const onPress = React.useCallback(async () => {
     const url = await render({
-      onFrame: (frame) => {
+      onFrame: (frame, renderedFrames) => {
         setState({
           type: 'rendering',
-          lastFrame: frame,
+          lastFrameUrl: frame,
+          encodedFrames: 0,
+          renderedFrames,
+        });
+      },
+      onEncodingProgress: (encodedFrames) => {
+        setState((prevState) => {
+          if (prevState.type !== 'rendering') {
+            throw new TypeError('rendering');
+          }
+
+          return {
+            ...prevState,
+            encodedFrames,
+          };
         });
       },
     });
 
     const response = await requestPermissionsAsync(true);
+
     if (response.granted) {
       await saveToLibraryAsync(url);
       Alert.alert('Saved to Gallery!');
     }
+
     setState({
       type: 'preview',
     });
   }, [render, setState]);
+
+  const label = useMemo(() => {
+    if (state.type === 'rendering') {
+      if (state.encodedFrames > 0) {
+        return `Encoding ${state.encodedFrames}/${durationInFrames}`;
+      }
+      return `Rendering ${state.renderedFrames}/${durationInFrames}`;
+    }
+
+    return 'Render video';
+  }, [durationInFrames, state]);
 
   return (
     <View style={styles.container}>
       <TouchableHighlight
         underlayColor={'black'}
         style={styles.button}
+        disabled={state.type !== 'preview'}
         onPress={onPress}
       >
-        <Text style={styles.label}>Render video</Text>
+        <Text style={styles.label}>{label}</Text>
       </TouchableHighlight>
     </View>
   );

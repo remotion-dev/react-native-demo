@@ -1,6 +1,6 @@
 import { FFmpegKit } from 'ffmpeg-kit-react-native';
 import React, { useCallback, useContext, useMemo, useRef } from 'react';
-import type { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { TemporaryDirectoryPath, moveFile, mkdir } from 'react-native-fs';
 import { captureRef } from 'react-native-view-shot';
 import { Internals, useVideoConfig } from 'remotion';
@@ -36,7 +36,17 @@ export const RemotionNativeContext = React.createContext<RemotionNativeContext>(
 );
 
 export type RenderOptions = {
-  onFrame: (url: string) => void;
+  onFrame: (url: string, frames: number) => void;
+  onEncodingProgress: (frames: number) => void;
+};
+
+const parseFfmpegProgress = (input: string): number | undefined => {
+  const match = input.match(/frame=(\s+)?([0-9]+)\s/);
+  if (!match) {
+    return undefined;
+  }
+
+  return Number(match[2]);
 };
 
 export const RemotionNativeContextProvider: React.FC<{
@@ -59,7 +69,7 @@ export const RemotionNativeContextProvider: React.FC<{
         const d = await captureRef(ref.current as View, {});
         const out = `${dir}/image${String(i).padStart(6, '0')}.png`;
         await moveFile(d, out);
-        options.onFrame(out);
+        options.onFrame(Platform.OS === 'android' ? d : out, i + 1);
         frames.push(d);
       }
 
@@ -80,7 +90,10 @@ export const RemotionNativeContextProvider: React.FC<{
             resolve();
           },
           (l) => {
-            console.log(l.getMessage());
+            const progress = parseFfmpegProgress(l.getMessage() as string);
+            if (progress !== undefined) {
+              options.onEncodingProgress(progress);
+            }
           }
         );
       });

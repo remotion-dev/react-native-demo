@@ -26,7 +26,7 @@ function Main() {
           ) : (
             <View style={styles.flex}>
               <Image
-                source={{ uri: state.lastFrame }}
+                source={{ uri: state.lastFrameUrl }}
                 resizeMode="contain"
                 style={styles.fullSize}
               />
@@ -34,7 +34,7 @@ function Main() {
           )}
           <View style={styles.spacer} />
           <Controls />
-          <RenderButton setState={setState} />
+          <RenderButton state={state} setState={setState} />
         </View>
       </RemotionContext>
     </View>

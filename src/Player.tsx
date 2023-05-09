@@ -1,4 +1,4 @@
-import React, { Suspense, useContext, useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Internals, useVideoConfig } from 'remotion';
 import { View, ViewProps } from 'react-native';
 import { calculateCanvasTransformation } from './calculate-scale';
@@ -43,6 +43,7 @@ function InnerPlayer(props: Props) {
         },
       ],
       overflow: 'hidden',
+      borderRadius: 10,
     };
   }, [height, scale, width, xCorrection, yCorrection]);
 
@@ -56,9 +57,7 @@ function InnerPlayer(props: Props) {
   return (
     <View style={outer}>
       <View style={style}>
-        <Suspense fallback={<View />}>
-          <Comp {...(defaultProps as {})} />
-        </Suspense>
+        <Comp {...(defaultProps as {})} />
       </View>
     </View>
   );

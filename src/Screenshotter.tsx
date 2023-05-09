@@ -34,6 +34,7 @@ export const Screenshotter: React.FC = () => {
       marginLeft: xCorrection,
       marginTop: yCorrection,
       position: 'absolute',
+      borderRadius: 10,
     };
   }, [height, width]);
 
