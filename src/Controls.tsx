@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from 'react';
 import Slider from '@react-native-community/slider';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Internals, useVideoConfig } from 'remotion';
 import { PauseIcon, PlayIcon } from './PlayIcon';
 
@@ -17,6 +17,9 @@ const style = StyleSheet.create({
   spacer: {
     width: 10,
   },
+  label: {
+    color: 'white',
+  },
 });
 
 const InnerControls: React.FC = () => {
@@ -24,7 +27,7 @@ const InnerControls: React.FC = () => {
   const { setFrame, setPlaying } = useContext(
     Internals.Timeline.SetTimelineContext
   );
-  const { durationInFrames } = useVideoConfig();
+  const { durationInFrames, fps } = useVideoConfig();
 
   const onValueChange = useCallback(
     (val: number) => {
@@ -37,11 +40,20 @@ const InnerControls: React.FC = () => {
     setPlaying((p) => !p);
   }, [setPlaying]);
 
+  const renderTime = useCallback(() => {
+    const seconds = frame / fps;
+    const minutes = Math.floor(seconds / 60);
+    const secondsRemaining = seconds - minutes * 60;
+    return `${minutes}:${String(secondsRemaining.toFixed(0)).padStart(2, '0')}`;
+  }, [fps, frame]);
+
   return (
     <View style={style.container}>
       <TouchableOpacity onPress={togglePlaying}>
         {playing ? <PauseIcon /> : <PlayIcon />}
       </TouchableOpacity>
+      <View style={style.spacer} />
+      <Text style={style.label}>{renderTime()}</Text>
       <View style={style.spacer} />
       <Slider
         thumbTintColor="white"
