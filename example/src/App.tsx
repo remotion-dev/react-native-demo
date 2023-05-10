@@ -11,6 +11,10 @@ function Main() {
   const [state, setState] = React.useState<RenderState>({ type: 'preview' });
   const [portrait, setPortrait] = React.useState(false);
 
+  const togglePortrait = React.useCallback(() => {
+    setPortrait((p) => !p);
+  }, []);
+
   return (
     <View style={styles.flex}>
       <RemotionContext
@@ -35,12 +39,7 @@ function Main() {
             </View>
           )}
           <View style={styles.spacer} />
-          <Switch
-            value={portrait}
-            onChange={(e) => {
-              setPortrait((p) => !p);
-            }}
-          />
+          <Switch value={portrait} onChange={togglePortrait} />
           <View style={styles.spacer} />
           <Controls />
           <RenderButton state={state} setState={setState} />
