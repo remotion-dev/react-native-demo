@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Controls, RemotionContext } from '@remotion/native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, Switch, View } from 'react-native';
 import { MyComp } from './MyComp';
 import { RenderButton, RenderState } from './RenderButton';
 import { PlayerContainer } from './PlayerContainer';
@@ -9,12 +9,13 @@ import { StatusBar } from 'expo-status-bar';
 
 function Main() {
   const [state, setState] = React.useState<RenderState>({ type: 'preview' });
+  const [portrait, setPortrait] = React.useState(false);
 
   return (
     <View style={styles.flex}>
       <RemotionContext
         width={1080}
-        height={1920}
+        height={portrait ? 1080 : 1920}
         durationInFrames={100}
         fps={30}
         inputProps={{}}
@@ -33,6 +34,13 @@ function Main() {
               />
             </View>
           )}
+          <View style={styles.spacer} />
+          <Switch
+            value={portrait}
+            onChange={(e) => {
+              setPortrait((p) => !p);
+            }}
+          />
           <View style={styles.spacer} />
           <Controls />
           <RenderButton state={state} setState={setState} />
