@@ -9,7 +9,7 @@ import { Screenshotter } from './Screenshotter';
 
 type Props<T> = {
   component: LooseComponentType<T>;
-  inputProps: T;
+  props: T;
   durationInFrames: number;
   fps: number;
   height: number;
@@ -36,7 +36,7 @@ export function RemotionContext<T extends JSX.IntrinsicAttributes>({
   fps,
   height,
   width,
-  inputProps,
+  props: props,
 }: Props<T>) {
   return (
     <CompositionManagerProvider
@@ -45,7 +45,7 @@ export function RemotionContext<T extends JSX.IntrinsicAttributes>({
       fps={fps}
       height={height}
       width={width}
-      defaultProps={inputProps}
+      defaultProps={props}
     >
       <TimelineProvider>
         <RemotionNativeContextProvider>

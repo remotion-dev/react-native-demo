@@ -25,7 +25,7 @@ function Main() {
         height={currentAspectRatio === 'portrait' ? 1920 : 1080}
         durationInFrames={100}
         fps={30}
-        inputProps={{}}
+        props={{}}
         component={Horse}
       >
         <View style={styles.flex}>
