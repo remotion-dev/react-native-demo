@@ -5,14 +5,14 @@ import { Image, StyleSheet, View } from 'react-native';
 import { RenderButton, RenderState } from './RenderButton';
 import { PlayerContainer } from './PlayerContainer';
 import { StatusBar } from 'expo-status-bar';
-import { AspectRatioToggler } from './AspectRatioToggler';
+import { AspectRatio, AspectRatioToggler } from './AspectRatioToggler';
 import { Horse } from './Horse';
+import { CompToggler } from './CompToggler';
 
 function Main() {
   const [state, setState] = React.useState<RenderState>({ type: 'preview' });
-  const [currentAspectRatio, setCurrentAspectRatio] = React.useState<
-    'portrait' | 'square' | 'wide'
-  >('wide');
+  const [currentAspectRatio, setCurrentAspectRatio] =
+    React.useState<AspectRatio>('wide');
 
   const onAspectChange = React.useCallback((newAspect) => {
     setCurrentAspectRatio(newAspect);
@@ -44,6 +44,11 @@ function Main() {
           <View style={styles.spacer} />
           <View style={styles.controlsRow}>
             <AspectRatioToggler
+              onChange={onAspectChange}
+              current={currentAspectRatio}
+            />
+            <View style={styles.flex} />
+            <CompToggler
               onChange={onAspectChange}
               current={currentAspectRatio}
             />
@@ -86,5 +91,7 @@ const styles = StyleSheet.create({
   preview: {},
   controlsRow: {
     flexDirection: 'row',
+    marginLeft: 20,
+    marginRight: 20,
   },
 });

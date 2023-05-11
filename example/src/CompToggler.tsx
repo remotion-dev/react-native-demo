@@ -1,57 +1,42 @@
 import React from 'react';
 import { Image, StyleSheet, TouchableHighlight, View } from 'react-native';
 
-export type AspectRatio = 'portrait' | 'square' | 'wide';
+export type Comp = 'horse' | 'runner';
 
-export const AspectRatioToggler: React.FC<{
-  onChange: (newAspect: AspectRatio) => void;
-  current: AspectRatio;
+export const CompToggler: React.FC<{
+  onChange: (newAspect: Comp) => void;
+  current: Comp;
 }> = ({ onChange, current }) => {
-  const onWide = React.useCallback(() => {
-    onChange('wide');
+  const onHorse = React.useCallback(() => {
+    onChange('horse');
   }, [onChange]);
 
-  const onSquare = React.useCallback(() => {
-    onChange('square');
-  }, [onChange]);
-
-  const onPortrait = React.useCallback(() => {
-    onChange('portrait');
+  const onRunner = React.useCallback(() => {
+    onChange('runner');
   }, [onChange]);
 
   return (
     <View>
       <View style={styles.row}>
         <TouchableHighlight
-          onPress={onWide}
-          style={current === 'wide' ? activeButton : styles.button}
+          onPress={onHorse}
+          style={current === 'horse' ? activeButton : styles.button}
         >
           <Image
             style={styles.icon}
             resizeMode="contain"
-            source={require('../assets/wide.png')}
+            source={require('../assets/horse.png')}
           />
         </TouchableHighlight>
         <View style={styles.divider} />
         <TouchableHighlight
-          onPress={onSquare}
-          style={current === 'square' ? activeButton : styles.button}
+          onPress={onRunner}
+          style={current === 'runner' ? activeButton : styles.button}
         >
           <Image
             style={styles.squareIcon}
             resizeMode="contain"
-            source={require('../assets/square.png')}
-          />
-        </TouchableHighlight>
-        <View style={styles.divider} />
-        <TouchableHighlight
-          onPress={onPortrait}
-          style={current === 'portrait' ? activeButton : styles.button}
-        >
-          <Image
-            style={styles.portraitIcon}
-            resizeMode="contain"
-            source={require('../assets/portrait.png')}
+            source={require('../assets/runner.png')}
           />
         </TouchableHighlight>
       </View>
@@ -65,6 +50,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#666',
     borderRadius: 4,
+    marginLeft: 20,
   },
   divider: {
     borderLeftColor: '#666',
