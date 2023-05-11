@@ -19,7 +19,7 @@ type Props<T> = {
 
 const WithPlayback: React.FC = ({ children }) => {
   usePlayback({
-    loop: false,
+    loop: true,
     moveToBeginningWhenEnded: true,
     playbackRate: 1,
     inFrame: null,

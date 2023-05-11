@@ -7,15 +7,21 @@ import { PlayerContainer } from './PlayerContainer';
 import { StatusBar } from 'expo-status-bar';
 import { AspectRatio, AspectRatioToggler } from './AspectRatioToggler';
 import { Horse } from './Horse';
-import { CompToggler } from './CompToggler';
+import { Comp, CompToggler } from './CompToggler';
+import { Run } from './Run';
 
 function Main() {
   const [state, setState] = React.useState<RenderState>({ type: 'preview' });
   const [currentAspectRatio, setCurrentAspectRatio] =
     React.useState<AspectRatio>('wide');
+  const [comp, setComp] = React.useState<Comp>('horse');
 
   const onAspectChange = React.useCallback((newAspect) => {
     setCurrentAspectRatio(newAspect);
+  }, []);
+
+  const onCompChange = React.useCallback((newComp) => {
+    setComp(newComp);
   }, []);
 
   return (
@@ -26,7 +32,7 @@ function Main() {
         durationInFrames={100}
         fps={30}
         props={{}}
-        component={Horse}
+        component={comp === 'horse' ? Horse : Run}
       >
         <View style={styles.flex}>
           {state.type === 'preview' ? (
@@ -48,10 +54,7 @@ function Main() {
               current={currentAspectRatio}
             />
             <View style={styles.flex} />
-            <CompToggler
-              onChange={onAspectChange}
-              current={currentAspectRatio}
-            />
+            <CompToggler onChange={onCompChange} current={comp} />
           </View>
           <View style={styles.spacer} />
           <Controls />
