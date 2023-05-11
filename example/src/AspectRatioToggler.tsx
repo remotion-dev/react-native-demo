@@ -63,12 +63,12 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     borderWidth: 1,
-    borderColor: '#aaa',
+    borderColor: '#666',
     borderRadius: 4,
     marginLeft: 20,
   },
   divider: {
-    borderLeftColor: '#aaa',
+    borderLeftColor: '#666',
     borderLeftWidth: 1,
   },
   button: {
