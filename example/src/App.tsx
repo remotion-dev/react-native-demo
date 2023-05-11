@@ -6,20 +6,23 @@ import { MyComp } from './MyComp';
 import { RenderButton, RenderState } from './RenderButton';
 import { PlayerContainer } from './PlayerContainer';
 import { StatusBar } from 'expo-status-bar';
+import { AspectRatioToggler } from './AspectRatioToggler';
 
 function Main() {
   const [state, setState] = React.useState<RenderState>({ type: 'preview' });
-  const [portrait, setPortrait] = React.useState(false);
+  const [currentAspectRatio, setCurrentAspectRatio] = React.useState<
+    'portrait' | 'square' | 'wide'
+  >('wide');
 
-  const togglePortrait = React.useCallback(() => {
-    setPortrait((p) => !p);
+  const onAspectChange = React.useCallback((newAspect) => {
+    setCurrentAspectRatio(newAspect);
   }, []);
 
   return (
     <View style={styles.flex}>
       <RemotionContext
-        width={1080}
-        height={portrait ? 1080 : 1920}
+        width={currentAspectRatio === 'wide' ? 1920 : 1080}
+        height={currentAspectRatio === 'portrait' ? 1920 : 1080}
         durationInFrames={100}
         fps={30}
         inputProps={{}}
@@ -39,7 +42,12 @@ function Main() {
             </View>
           )}
           <View style={styles.spacer} />
-          <Switch value={portrait} onChange={togglePortrait} />
+          <View style={styles.controlsRow}>
+            <AspectRatioToggler
+              onChange={onAspectChange}
+              current={currentAspectRatio}
+            />
+          </View>
           <View style={styles.spacer} />
           <Controls />
           <RenderButton state={state} setState={setState} />
@@ -76,4 +84,7 @@ const styles = StyleSheet.create({
     height: 20,
   },
   preview: {},
+  controlsRow: {
+    flexDirection: 'row',
+  },
 });
