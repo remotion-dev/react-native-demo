@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Controls, RemotionContext } from '@remotion/native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Image, StyleSheet, Switch, View } from 'react-native';
-import { MyComp } from './MyComp';
+import { Image, StyleSheet, View } from 'react-native';
 import { RenderButton, RenderState } from './RenderButton';
 import { PlayerContainer } from './PlayerContainer';
 import { StatusBar } from 'expo-status-bar';
 import { AspectRatioToggler } from './AspectRatioToggler';
+import { Horse } from './Horse';
 
 function Main() {
   const [state, setState] = React.useState<RenderState>({ type: 'preview' });
@@ -26,7 +26,7 @@ function Main() {
         durationInFrames={100}
         fps={30}
         inputProps={{}}
-        component={MyComp}
+        component={Horse}
       >
         <View style={styles.flex}>
           {state.type === 'preview' ? (

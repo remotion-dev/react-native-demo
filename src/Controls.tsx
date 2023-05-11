@@ -15,10 +15,11 @@ const style = StyleSheet.create({
     alignItems: 'center',
   },
   spacer: {
-    width: 10,
+    width: 14,
   },
   label: {
     color: 'white',
+    fontSize: 16,
   },
 });
 

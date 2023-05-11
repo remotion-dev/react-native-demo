@@ -16,11 +16,11 @@ import {
 } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
-import { SAMPLE_RUN } from './run';
+import { SAMPLE_RUN } from './data';
 
 import { useFonts, DMSans_500Medium } from '@expo-google-fonts/dm-sans';
 
-export const MyComp: React.FC = () => {
+export const Run: React.FC = () => {
   const [loadedFonts] = useFonts({
     DMSans_500Medium,
   });
