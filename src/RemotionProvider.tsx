@@ -15,11 +15,14 @@ type Props<T> = {
   height: number;
   width: number;
   children: React.ReactNode;
+  loop: boolean;
 };
 
-const WithPlayback: React.FC = ({ children }) => {
+const WithPlayback: React.FC<{
+  loop: boolean;
+}> = ({ children, loop }) => {
   usePlayback({
-    loop: true,
+    loop,
     moveToBeginningWhenEnded: true,
     playbackRate: 1,
     inFrame: null,
@@ -36,7 +39,8 @@ export function RemotionContext<T extends JSX.IntrinsicAttributes>({
   fps,
   height,
   width,
-  props: props,
+  props,
+  loop,
 }: Props<T>) {
   return (
     <CompositionManagerProvider
@@ -49,7 +53,7 @@ export function RemotionContext<T extends JSX.IntrinsicAttributes>({
     >
       <TimelineProvider>
         <RemotionNativeContextProvider>
-          <WithPlayback>
+          <WithPlayback loop={loop}>
             <View style={styles.outOfViewport}>
               <Screenshotter />
             </View>

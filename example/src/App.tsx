@@ -9,12 +9,14 @@ import { AspectRatio, AspectRatioToggler } from './AspectRatioToggler';
 import { Horse } from './Horse';
 import { Comp, CompToggler } from './CompToggler';
 import { Run } from './Run';
+import { LoopToggler } from './LoopToggler';
 
 function Main() {
   const [state, setState] = React.useState<RenderState>({ type: 'preview' });
   const [currentAspectRatio, setCurrentAspectRatio] =
     React.useState<AspectRatio>('wide');
   const [comp, setComp] = React.useState<Comp>('horse');
+  const [loop, setLoop] = React.useState(false);
 
   const onAspectChange = React.useCallback((newAspect) => {
     setCurrentAspectRatio(newAspect);
@@ -32,6 +34,7 @@ function Main() {
         durationInFrames={100}
         fps={30}
         props={{}}
+        loop={loop}
         component={comp === 'horse' ? Horse : Run}
       >
         <View style={styles.flex}>
@@ -55,6 +58,8 @@ function Main() {
             />
             <View style={styles.flex} />
             <CompToggler onChange={onCompChange} current={comp} />
+            <View style={styles.spacer} />
+            <LoopToggler loop={loop} setLoop={setLoop} />
           </View>
           <View style={styles.spacer} />
           <Controls />
@@ -90,11 +95,13 @@ const styles = StyleSheet.create({
   },
   spacer: {
     height: 20,
+    width: 20,
   },
   preview: {},
   controlsRow: {
     flexDirection: 'row',
     marginLeft: 20,
-    marginRight: 20,
+    marginRight: 25,
+    alignItems: 'center',
   },
 });
