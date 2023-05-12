@@ -66,8 +66,10 @@ export const RemotionNativeContextProvider: React.FC<{
 
       for (let i = 0; i < durationInFrames; i++) {
         setFrame(i);
-        const d = await captureRef(ref.current as View, {});
-        const out = `${dir}/image${String(i).padStart(6, '0')}.png`;
+        const d = await captureRef(ref.current as View, {
+          format: 'jpg',
+        });
+        const out = `${dir}/image${String(i).padStart(6, '0')}.jpg`;
         if (Platform.OS === 'android') {
           options.onFrame(d, i + 1);
           frames.push(d);
@@ -84,7 +86,7 @@ export const RemotionNativeContextProvider: React.FC<{
         FFmpegKit.executeAsync(
           [
             `-r ${fps}`,
-            `-i ${dir}/image%06d.png`,
+            `-i ${dir}/image%06d.jpg`,
             `-c:v`,
             `libx264`,
             '-pix_fmt',
