@@ -19,6 +19,8 @@ import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 import { SAMPLE_RUN } from './data';
 
 import { useFonts, DMSans_500Medium } from '@expo-google-fonts/dm-sans';
+import { Horse } from './Horse';
+import { Pictures } from './Pictures';
 
 export const Run: React.FC = () => {
   const [loadedFonts] = useFonts({
@@ -93,6 +95,7 @@ export const Run: React.FC = () => {
   return (
     <View style={style}>
       <View style={container}>
+        {/* <Pictures /> */}
         <View style={styles.container}>
           <View style={styles.row}>
             <Image
